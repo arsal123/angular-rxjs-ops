@@ -1,0 +1,113 @@
+<div class="users-container">
+  <header class="users-header">
+    <h1>Users</h1>
+    <p class="users-subtitle">Exploring RxJS operations with user data</p>
+  </header>
+
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading users...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error() && !loading()) {
+    <div class="error-container">
+      <div class="error-icon">⚠️</div>
+      <h3 class="error-title">Oops! Something went wrong</h3>
+      <p class="error-message">{{ error() }}</p>
+      <button class="retry-button" (click)="retryLoadUsers()" type="button">
+        Try Again
+      </button>
+    </div>
+  }
+
+  <!-- Users List -->
+  @if (users().length > 0 && !loading() && !error()) {
+    <div class="users-grid">
+      @for (user of users(); track user.id) {
+        <app-user
+          [avatar]="user.avatar"
+          [firstName]="user.first_name"
+          [lastName]="user.last_name"
+          [email]="user.email"
+          [id]="user.id"
+        />
+      }
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (users().length === 0 && !loading() && !error()) {
+    <div class="empty-container">
+      <div class="empty-icon">👥</div>
+      <h3 class="empty-title">No users found</h3>
+      <p class="empty-message">There are currently no users to display.</p>
+      <button class="retry-button" (click)="retryLoadUsers()" type="button">
+        Refresh
+      </button>
+    </div>
+  }
+  <br />
+  <button id="get-users-button" class="get-users-button" (click)="loadUsers()" type="button">
+    Get Users
+  </button>
+
+</div>
+
+<!-- Show Cache Usage Details -->
+<div id="cache-usage-container" class="cache-usage-container">
+  <h3>Cache Usage Details</h3>
+  
+  @if (cacheStats(); as stats) {
+    <div class="cache-stats-grid">
+      <div class="cache-stat-card">
+        <div class="cache-stat-icon">🎯</div>
+        <div class="cache-stat-content">
+          <div class="cache-stat-value">{{ stats.hits }}</div>
+          <div class="cache-stat-label">Cache Hits</div>
+        </div>
+      </div>
+      
+      <div class="cache-stat-card">
+        <div class="cache-stat-icon">❌</div>
+        <div class="cache-stat-content">
+          <div class="cache-stat-value">{{ stats.misses }}</div>
+          <div class="cache-stat-label">Cache Misses</div>
+        </div>
+      </div>
+      
+      <div class="cache-stat-card">
+        <div class="cache-stat-icon">💾</div>
+        <div class="cache-stat-content">
+          <div class="cache-stat-value">{{ stats.size }}</div>
+          <div class="cache-stat-label">Cache Size</div>
+        </div>
+      </div>
+      
+      <div class="cache-stat-card highlight">
+        <div class="cache-stat-icon">📊</div>
+        <div class="cache-stat-content">
+          <div class="cache-stat-value">{{ stats.hitRate }}%</div>
+          <div class="cache-stat-label">Hit Rate</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="cache-actions">
+      <button class="cache-refresh-btn" (click)="loadCacheStats()" type="button">
+        🔄 Refresh Stats
+      </button>
+      <button class="cache-clear-btn" (click)="clearCache()" type="button">
+        🗑️ Clear Cache
+      </button>
+    </div>
+  } @else {
+    <div class="cache-loading">
+      <div class="cache-loading-spinner"></div>
+      <p>Loading cache statistics...</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,15 @@
+<div class="user-card">
+  <div class="user-avatar">
+    <img 
+      [src]="avatar()" 
+      [alt]="firstName() + ' ' + lastName() + ' avatar'"
+      class="avatar-image"
+      loading="lazy"
+      (error)="onImageError($event)"
+    />
+  </div>
+  <div class="user-info">
+    <h3 class="user-name">{{ firstName() }} {{ lastName() }}</h3>
+    <p class="user-email">{{ email() }}</p>
+  </div>
+</div>

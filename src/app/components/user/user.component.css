@@ -1,0 +1,111 @@
+:host {
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --primary-color: #3b82f6;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+.user-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.user-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.user-avatar {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.avatar-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  transition: var(--transition);
+}
+
+.user-card:hover .avatar-image {
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :host {
+    --card-bg: #1f2937;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+  }
+  
+  .user-card {
+    border-color: #374151;
+  }
+  
+  .avatar-image {
+    border-color: #4b5563;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-card {
+    padding: 1rem;
+  }
+  
+  .avatar-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .user-name {
+    font-size: 1rem;
+  }
+  
+  .user-email {
+    font-size: 0.8rem;
+  }
+}
